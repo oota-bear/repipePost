@@ -1,12 +1,22 @@
 <template>
-  <div>
+  <v-app>
     <Header />
-    <v-card>
-    <v-card-title>
-      レシピ管理サイト
-    </v-card-title>
-  </v-card>
+    <div class="mt-16">
+    <v-row align="right" class="ml-20">
+      <v-col cols="4">
+        <h3 align="right">
+          レシピ管理サイト
+        </h3>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col cols="6" class="mr-20">
+        <v-btn align="right">
+          レシピを登録する
+        </v-btn>
+      </v-col>
+    </v-row>
   </div>
+</v-app>
 </template>
 
 <script lang="ts">
