@@ -16,8 +16,6 @@
     name: "Header",
     computed: {
     },
-    data() {
-    },
     components: {
         SideMenu
     },

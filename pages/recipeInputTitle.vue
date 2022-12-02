@@ -12,7 +12,7 @@
     <v-row>
       <v-spacer></v-spacer>
       <v-col cols="9" align="left" style="height:35px">
-        <p v-if="recipeTitle.length >= 30"
+        <p v-if="recipeTitle && recipeTitle.length >= 30"
         class="red--text"
         >
         30文字以上は入力できません。
@@ -41,20 +41,21 @@
         @click="nextPage"
         >次へ</v-btn>
       </v-col>
-  </v-row>
-</v-content>
+    </v-row>
+    </v-content>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Header from '~/components/Header.vue';
+
 export default Vue.extend({
     name: 'recipeInputTitle',
     components: {
         Header
     },
-data() {
+data :function() {
     return {
     recipeTitle:""
     }
