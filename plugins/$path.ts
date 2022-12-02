@@ -5,11 +5,20 @@ type OptionalQuery0 = {
 }
 
 export const pagesPath = {
+  Top: {
+    $url: (url?: { hash?: string }) => ({ path: '/Top', hash: url?.hash })
+  },
   article: {
     _id: (id?: string | number) => ({
       $url: (url?: { hash?: string }) => ({ path: `/article${id !== undefined ? `/${id}` : ''}`, hash: url?.hash })
     }),
     $url: (url?: { query?: OptionalQuery0, hash?: string }) => ({ path: '/article', query: url?.query as any, hash: url?.hash })
+  },
+  recipeInputInfo: {
+    $url: (url?: { hash?: string }) => ({ path: '/recipeInputInfo', hash: url?.hash })
+  },
+  recipeInputTitle: {
+    $url: (url?: { hash?: string }) => ({ path: '/recipeInputTitle', hash: url?.hash })
   },
   $url: (url?: { hash?: string }) => ({ path: '/', hash: url?.hash })
 }

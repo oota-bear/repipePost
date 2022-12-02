@@ -3,8 +3,8 @@
     <Header />
     <div class="mt-16">
     <v-row align="right" class="ml-20">
-      <v-col cols="4" align="right">
-        <h3>
+      <v-col cols="4">
+        <h3 align="right">
           レシピ管理サイト
         </h3>
       </v-col>
@@ -28,7 +28,9 @@ import type { Task } from '$prisma/client'
 import UserBanner from '~/components/UserBanner.vue'
 import Logo from '~/components/Logo.vue'
 import Header from'~/components/Header.vue'
+
 export default Vue.extend({
+  name:"Top",
   components: {
     UserBanner,
     Logo,
@@ -65,10 +67,10 @@ export default Vue.extend({
       await this.fetchTasks()
     },
     gotoPost(){
-      console.log("aa")
-      this.$router.push({name:"recipeInputTitle"});
-    }
+      console.log("aaa")
   }
+  },
+  
 })
 </script>
 
