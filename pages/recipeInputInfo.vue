@@ -21,7 +21,7 @@
             <v-col class="mt-3" cols="1" align="left">
               分量単位：
             </v-col>
-            <v-col cols="1" dense>
+            <v-col cols="1" class="pl-n50" align="left">
               <v-select
                 class="ml-n50"
                 outlined
@@ -48,9 +48,16 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="9" align="right">
+            <v-col cols="8" align="right">
               <v-btn @click="addMaterial()">
                 追加する
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row class="mt-20">
+            <v-col cols="10" align="center">
+              <v-btn color="red" class="white--text">
+                登録
               </v-btn>
             </v-col>
           </v-row>

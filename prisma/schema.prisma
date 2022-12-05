@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -7,15 +10,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Task {
-  id    Int     @id @default(autoincrement())
-  label String
-  done  Boolean @default(false)
-}
-
 model RecipeTitle {
   id    Int     @id @default(autoincrement())
   title String
   create_datetime DateTime
   update_datetime DateTime
 }
+
