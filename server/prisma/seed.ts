@@ -1,26 +1,24 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client';
 const prisma = new PrismaClient()
 
 async function main() {
-  const task1 = await prisma.task.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      label: 'task1',
-      done: true
+  const test = await prisma.recipeTitle.create({
+    data: {
+      title:'test',
+      create_datetime:new Date('2022-12-08 19:56:47'),
+      update_datetime:new Date('2022-12-08 19:56:47')
     }
   })
 
-  const task2 = await prisma.task.upsert({
-    where: { id: 2 },
-    update: {},
-    create: {
-      label: 'task2',
-      done: false
+  const task2 = await prisma.recipeTitle.create({
+    data: {
+      title:'test',
+      create_datetime:new Date('2022-12-08 19:56:47'),
+      update_datetime:new Date('2022-12-08 19:56:47')
     }
   })
 
-  console.log({ task1, task2 })
+  console.log({ test, task2 })
 }
 
 main()
