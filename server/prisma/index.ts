@@ -7,7 +7,12 @@ async function main() {
         where: {id:2}
     })
     console.log(get)
-
+    
+    const getScaleType = await prisma.scaleType.findMany({
+        where:{},
+        orderBy:{id:'asc'}
+    })
+    console.log(getScaleType)
 }
 
 main()

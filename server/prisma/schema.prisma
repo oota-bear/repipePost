@@ -7,15 +7,16 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Task {
-  id    Int     @id @default(autoincrement())
-  label String
-  done  Boolean @default(false)
-}
-
 model RecipeTitle {
   id    Int     @id @default(autoincrement())
   title String
+  create_datetime DateTime
+  update_datetime DateTime
+}
+
+model ScaleType {
+  id Int @id @default(autoincrement())
+  name String
   create_datetime DateTime
   update_datetime DateTime
 }

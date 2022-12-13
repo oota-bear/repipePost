@@ -21,7 +21,7 @@
             <v-col class="mt-3" cols="1" align="left">
               分量単位：
             </v-col>
-            <v-col cols="1" class="pl-n50" align="left">
+            <v-col cols="1" class="ml-n14" align="left">
               <v-select
                 class="ml-n50"
                 outlined
@@ -45,6 +45,11 @@
              <p v-if="num.scaleType == 3">
                 ml
              </p>
+            </v-col>
+          </v-row>
+          <v-row >
+            <v-col v-if="(materialAddFlug == 1)" cols="3" class="ml-n10 red--text" align="right">
+              *材料が入力されていません
             </v-col>
           </v-row>
           <v-row>
@@ -100,18 +105,26 @@ data: function(){
                 Id:3,
                 name:"ml"
             }
-        ]
+        ],
+        materialAddFlug: 0
     }
 },
 methods: {
     addMaterial() {
         const maxId = Math.max(...this.materials.map((p) => p.Id));
-        this.materials.push({
+        if(this.materials[maxId].material == "" || this.materials[maxId].scale == 0){
+          this.materialAddFlug = 1
+        }
+        else{
+          this.materialAddFlug = 0
+          this.materials.push({
               Id:maxId + 1,
               material:"",
               scaleType:0,
               scale:0
-        })
+          })
+        }
+       
     }
 },
 watch: {
