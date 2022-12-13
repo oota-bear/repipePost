@@ -1,7 +1,7 @@
 export type UserInfo = {
   id: string
   name: string
-  icon: string
+  icon: Blob
 }
 
 export type AuthHeader = {

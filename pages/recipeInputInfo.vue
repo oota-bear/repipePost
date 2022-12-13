@@ -69,9 +69,10 @@
         </v-content>
     </v-app>
 </template>
-<script>
+<script lang="ts">
 import Vue from 'vue';
 import Header from '~/components/Header.vue';
+import type { RecipeTitle } from '$prisma/client'
 
 export default Vue.extend({
     name: 'recipeInputInfo',
@@ -88,6 +89,8 @@ data: function(){
               scale:0
             }
         ],
+        scaleTypes: [] as ScaleType[],
+        /*
         scaleTypes:[
             {
                 Id:0,
@@ -106,6 +109,7 @@ data: function(){
                 name:"ml"
             }
         ],
+        */
         materialAddFlug: 0
     }
 },
@@ -124,7 +128,6 @@ methods: {
               scale:0
           })
         }
-       
     }
 },
 watch: {
@@ -133,6 +136,10 @@ watch: {
     deep: true,
     immediate: false
   },
+},
+mounted() {
+   const test = this.$api.ScaleTypes.$get()
+   console.log()
 }
 })
 </script>

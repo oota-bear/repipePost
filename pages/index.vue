@@ -23,7 +23,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import type { Task } from '$prisma/client'
 import Header from'~/components/Header.vue'
 export default Vue.extend({
   components: {

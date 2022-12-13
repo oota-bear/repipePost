@@ -43,9 +43,10 @@ export default Vue.extend({
     }
   },
   async fetch() {
-    await this.fetchTasks()
+    //await this.fetchTasks()
   },
   methods: {
+    /*
     async fetchTasks() {
       this.tasks = await this.$api.tasks.$get()
     },
@@ -66,9 +67,11 @@ export default Vue.extend({
       await this.$api.tasks._taskId(task.id).delete()
       await this.fetchTasks()
     },
+    */
     gotoPost(){
       console.log("aaa")
   }
+  
   },
   
 })
