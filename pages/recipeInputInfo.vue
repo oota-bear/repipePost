@@ -9,7 +9,7 @@
               </h3>
             </v-col>
           </v-row>
-          <v-row v-for="(num,index) in this.materials" v-bind:key="index">
+          <v-row v-for="(num,index) in materials" v-bind:key="index">
             <v-col class="mt-3" cols="2" align="right">
               材料名：
             </v-col>
@@ -28,7 +28,7 @@
                 v-model="num.scaleType"
                 :items="scaleTypes"
                 item-text="name"
-                item-value="Id"
+                item-value="id"
               >
               </v-select>
             </v-col>
@@ -39,11 +39,20 @@
               </v-text-field>
             </v-col>
             <v-col cols="2" class="mt-4">
-             <p v-if="num.scaleType == 0">
+             <p v-if="num.scaleType == 1">
                 g
              </p>
-             <p v-if="num.scaleType == 3">
+             <p v-if="num.scaleType == 4">
                 ml
+             </p>
+             <p v-if="num.scaleType == 5">
+                本
+             </p>
+             <p v-if="num.scaleType == 6">
+                個
+             </p>
+             <p v-if="num.scaleType == 7">
+                缶
              </p>
             </v-col>
           </v-row>
@@ -72,7 +81,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Header from '~/components/Header.vue';
-import type { RecipeTitle } from '$prisma/client'
+import type { ScaleType } from '$prisma/client'
 
 export default Vue.extend({
     name: 'recipeInputInfo',
@@ -128,6 +137,11 @@ methods: {
               scale:0
           })
         }
+    },
+    //DB取得処理
+    async getScaleTypes() {
+      this.scaleTypes = await this.$api.ScaleTypes.$get()
+      console.log(this.scaleTypes)
     }
 },
 watch: {
@@ -137,9 +151,11 @@ watch: {
     immediate: false
   },
 },
+async fetch() {
+  await this
+},
 mounted() {
-   const test = this.$api.ScaleTypes.$get()
-   console.log()
+   this.getScaleTypes()
 }
 })
 </script>

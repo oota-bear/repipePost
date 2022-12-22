@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import type { Task } from '$prisma/client'
+//import type { Task } from '$prisma/client'
 import UserBanner from '~/components/UserBanner.vue'
 import Logo from '~/components/Logo.vue'
 import Header from'~/components/Header.vue'
@@ -38,7 +38,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      tasks: [] as Task[],
+      //tasks: [] as Task[],
       newLabel: ''
     }
   },
