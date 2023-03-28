@@ -14,7 +14,7 @@
               材料名：
             </v-col>
             <v-col cols="2" align="center">
-              <v-text-field outlined v-model="num.material"
+              <v-text-field outlined v-model="num.name"
               >
               </v-text-field>
             </v-col>
@@ -25,7 +25,7 @@
               <v-select
                 class="ml-n50"
                 outlined
-                v-model="num.scaleType"
+                v-model="num.scaleTypeId"
                 :items="scaleTypes"
                 item-text="name"
                 item-value="id"
@@ -35,23 +35,24 @@
             <v-col cols="1">
               <v-text-field
                 outlined
-                v-model="num.scale">
+                v-model="num.scale"
+                type="number">
               </v-text-field>
             </v-col>
             <v-col cols="2" class="mt-4">
-             <p v-if="num.scaleType == 1">
+             <p v-if="num.scaleTypeId == 1">
                 g
              </p>
-             <p v-if="num.scaleType == 4">
+             <p v-if="num.scaleTypeId == 4">
                 ml
              </p>
-             <p v-if="num.scaleType == 5">
+             <p v-if="num.scaleTypeId == 5">
                 本
              </p>
-             <p v-if="num.scaleType == 6">
+             <p v-if="num.scaleTypeId == 6">
                 個
              </p>
-             <p v-if="num.scaleType == 7">
+             <p v-if="num.scaleTypeId == 7">
                 缶
              </p>
             </v-col>
@@ -70,7 +71,7 @@
           </v-row>
           <v-row class="mt-20">
             <v-col cols="10" align="center">
-              <v-btn color="red" class="white--text">
+              <v-btn color="red" class="white--text" @click="registMaterials()">
                 登録
               </v-btn>
             </v-col>
@@ -81,7 +82,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Header from '~/components/Header.vue';
-import type { ScaleType } from '$prisma/client'
+import type { ScaleType, Materials } from '$prisma/client'
 
 export default Vue.extend({
     name: 'recipeInputInfo',
@@ -90,72 +91,54 @@ export default Vue.extend({
     },
 data: function(){
     return{
-        materials:[
-            {
-              Id:0,
-              material:"",
-              scaleType:0,
-              scale:0
-            }
-        ],
+        materials: [] as Materials[],
         scaleTypes: [] as ScaleType[],
-        /*
-        scaleTypes:[
-            {
-                Id:0,
-                name:"グラム"
-            },
-            {
-                Id:1,
-                name:"大さじ"
-            },
-            {
-                Id:2,
-                name:"小さじ"
-            },
-            {
-                Id:3,
-                name:"ml"
-            }
-        ],
-        */
         materialAddFlug: 0
     }
 },
 methods: {
-    addMaterial() {
-        const maxId = Math.max(...this.materials.map((p) => p.Id));
-        if(this.materials[maxId].material == "" || this.materials[maxId].scale == 0){
+     addMaterial() {
+        const maxId = Math.max(...this.materials.map((p) => p.id));
+        if(this.materials[maxId-1].name == "" || this.materials[maxId-1].scale == 0){
           this.materialAddFlug = 1
         }
         else{
           this.materialAddFlug = 0
           this.materials.push({
-              Id:maxId + 1,
-              material:"",
-              scaleType:0,
+              id:maxId + 1,
+              name:"",
+              scaleTypeId:0,
               scale:0
           })
         }
     },
     //DB取得処理
     async getScaleTypes() {
-      this.scaleTypes = await this.$api.ScaleTypes.$get()
-      console.log(this.scaleTypes)
+      const get = await this.$api.ScaleTypes.$get()
+      if(get != undefined){
+        this.scaleTypes = get
+      }
+    },
+    //材料登録
+    async registMaterials() {
+      await this.$api.Materials.$post({ body: this.materials})
     }
 },
 watch: {
+  /*
     materials: {handler:function(newType,oldType){
     },
     deep: true,
     immediate: false
   },
+  */
 },
 async fetch() {
   await this
 },
 mounted() {
    this.getScaleTypes()
+   this.materials.push({id:0,name:"",scaleTypeId:1,scale:0})
 }
 })
 </script>

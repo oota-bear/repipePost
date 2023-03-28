@@ -20,3 +20,10 @@ model ScaleType {
   create_datetime DateTime
   update_datetime DateTime
 }
+
+model Materials {
+  id Int @id @default(autoincrement())
+  name String
+  scaleTypeId Int
+  scale Int
+}

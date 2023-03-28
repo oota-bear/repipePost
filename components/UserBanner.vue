@@ -9,15 +9,6 @@
       </form>
       <img class="logo" :src="$staticPath.favicon_png" />
     </div>
-    <div>
-      <template v-if="isLoggedIn">
-        <img :src="userInfo.icon" class="user-icon" />
-        <span>{{ userInfo.name }}</span>
-        <input type="file" accept="image/*" @change="editIcon" />
-        <button @click="logout">LOGOUT</button>
-      </template>
-      <button v-else @click="login">LOGIN</button>
-    </div>
   </div>
 </template>
 
@@ -41,6 +32,7 @@ export default Vue.extend({
         : ''
   },
   methods: {
+    /*
     async editIcon(e: { target: HTMLInputElement }) {
       if (!e.target?.files?.length) return
 
@@ -48,7 +40,8 @@ export default Vue.extend({
         headers: { authorization: this.token },
         body: { icon: e.target.files[0] }
       })
-    },
+      
+    },*/
     async login() {
       const id = prompt('Enter the user id (See server/.env)')
       const pass = prompt('Enter the user pass (See server/.env)')
@@ -61,11 +54,12 @@ export default Vue.extend({
       } catch (e) {
         return alert('Login failed')
       }
-
+       /*
       this.userInfo = await this.$api.user.$get({
         headers: { authorization: this.token }
       })
       this.isLoggedIn = true
+      */
     },
     logout() {
       this.token = ''

@@ -2,7 +2,7 @@
   "name": "frourio-app-server",
   "version": "0.1.0",
   "private": true,
-  "type":"commonjs",
+  "type": "commonjs",
   "scripts": {
     "dev": "npm run generate && npm run migrate:dev && run-p dev:*",
     "dev:server": "node-dev --respawn index.js",
@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -57,7 +59,7 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
-  "ts-node" : {
+  "ts-node": {
     "esm": true
   }
 }
