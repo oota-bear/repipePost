@@ -12,6 +12,7 @@ model RecipeTitle {
   title String
   create_datetime DateTime
   update_datetime DateTime
+  materials  Materials?
 }
 
 model ScaleType {
@@ -26,4 +27,6 @@ model Materials {
   name String
   scaleTypeId Int
   scale Int
+  recipeTitle RecipeTitle @relation(fields: [recipeTitleId], references: [id])
+  recipeTitleId Int @unique //relation
 }

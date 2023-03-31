@@ -30,7 +30,6 @@ export default Vue.extend({
   },
   methods: {
     gotoPost(){
-      console.log("aa")
       this.$router.push({name:"recipeInputTitle"});
     }
   }

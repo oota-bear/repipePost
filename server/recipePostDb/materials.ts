@@ -8,10 +8,11 @@ export const dbMethod = {
         try {
             const parameter : Materials[] = []
             for(let m  in materials){
-                const material: Materials = {id:1,name:"",scaleTypeId:0,scale:0}
+                const material: Materials = {id:1,name:"",scaleTypeId:0,scale:0,recipeTitleId:0}
                 material.name = materials[parseInt(m)].name,
                 material.scaleTypeId = materials[parseInt(m)].scaleTypeId,
                 material.scale = materials[parseInt(m)].scale
+                material.recipeTitleId = materials[parseInt(m)].recipeTitleId
                 parameter.push(material)
             }
 

@@ -97,7 +97,7 @@ data: function(){
     }
 },
 methods: {
-     addMaterial() {
+    addMaterial() {
         const maxId = Math.max(...this.materials.map((p) => p.id));
         if(this.materials[maxId-1].name == "" || this.materials[maxId-1].scale == 0){
           this.materialAddFlug = 1
@@ -122,6 +122,14 @@ methods: {
     //材料登録
     async registMaterials() {
       await this.$api.Materials.$post({ body: this.materials})
+    },
+    async addArrayMAterials() {
+      this.materials.push({
+        id:1,
+        name:"",
+        scaleTypeId:0,
+        scale:0
+      })
     }
 },
 watch: {
@@ -138,7 +146,7 @@ async fetch() {
 },
 mounted() {
    this.getScaleTypes()
-   this.materials.push({id:0,name:"",scaleTypeId:1,scale:0})
+   this.addArrayMAterials()
 }
 })
 </script>
