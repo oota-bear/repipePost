@@ -9,12 +9,12 @@
               </h3>
             </v-col>
           </v-row>
-          <v-row v-for="(num,index) in materials" v-bind:key="index">
+          <v-row v-for="(num,index) in materials" :key="index">
             <v-col class="mt-3" cols="2" align="right">
               材料名：
             </v-col>
             <v-col cols="2" align="center">
-              <v-text-field outlined v-model="num.name"
+              <v-text-field v-model="num.name" outlined
               >
               </v-text-field>
             </v-col>
@@ -23,9 +23,9 @@
             </v-col>
             <v-col cols="1" class="ml-n14" align="left">
               <v-select
+                v-model="num.scaleTypeId"
                 class="ml-n50"
                 outlined
-                v-model="num.scaleTypeId"
                 :items="scaleTypes"
                 item-text="name"
                 item-value="id"
@@ -34,8 +34,8 @@
             </v-col>
             <v-col cols="1">
               <v-text-field
-                outlined
                 v-model="num.scale"
+                outlined
                 type="number">
               </v-text-field>
             </v-col>
@@ -81,11 +81,11 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
+import type { ScaleType,Materials } from "@prisma/client"
 import Header from '~/components/Header.vue';
-import type { ScaleType, Materials } from '$prisma/client'
 
 export default Vue.extend({
-    name: 'recipeInputInfo',
+    name: 'RecipeInputInfo',
     components: {
         Header
     },
@@ -96,41 +96,8 @@ data: function(){
         materialAddFlug: 0
     }
 },
-methods: {
-    addMaterial() {
-        const maxId = Math.max(...this.materials.map((p) => p.id));
-        if(this.materials[maxId-1].name == "" || this.materials[maxId-1].scale == 0){
-          this.materialAddFlug = 1
-        }
-        else{
-          this.materialAddFlug = 0
-          this.materials.push({
-              id:maxId + 1,
-              name:"",
-              scaleTypeId:0,
-              scale:0
-          })
-        }
-    },
-    //DB取得処理
-    async getScaleTypes() {
-      const get = await this.$api.ScaleTypes.$get()
-      if(get != undefined){
-        this.scaleTypes = get
-      }
-    },
-    //材料登録
-    async registMaterials() {
-      await this.$api.Materials.$post({ body: this.materials})
-    },
-    async addArrayMAterials() {
-      this.materials.push({
-        id:1,
-        name:"",
-        scaleTypeId:0,
-        scale:0
-      })
-    }
+async fetch() {
+  await this
 },
 watch: {
   /*
@@ -141,12 +108,47 @@ watch: {
   },
   */
 },
-async fetch() {
-  await this
-},
 mounted() {
    this.getScaleTypes()
    this.addArrayMAterials()
+},
+methods: {
+    addMaterial() {
+        const maxId = Math.max(...this.materials.map((p) => p.id));
+        if(this.materials[maxId-1].name === "" || this.materials[maxId-1].scale == 0){
+          this.materialAddFlug = 1
+        }
+        else{
+          this.materialAddFlug = 0
+          this.materials.push({
+              id:maxId + 1,
+              name:"",
+              scaleTypeId:0,
+              recipeTitleId:0,
+              scale:0
+          })
+        }
+    },
+    // DB取得処理
+    async getScaleTypes() {
+      const get = await this.$api.ScaleTypes.$get()
+      if(get !== undefined){
+        this.scaleTypes = get
+      }
+    },
+    // 材料登録
+    async registMaterials() {
+      await this.$api.Materials.$post({ body: this.materials})
+    },
+    addArrayMAterials() {
+      this.materials.push({
+        id:1,
+        name:"",
+        scaleTypeId:0,
+        recipeTitleId:0,
+        scale:0
+      })
+    }
 }
 })
 </script>

@@ -1,7 +1,7 @@
 import { RouterLinkStub } from '@vue/test-utils'
 import { render, fireEvent } from '@testing-library/vue'
 import aspida from '@aspida/axios'
-import Home from '@/pages/Top.vue'
+import top from '@/pages/top.vue'
 import api from '$/api/$api'
 
 const apiClient = api(aspida())

@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import { ScaleType } from '@prisma/client'
+import { PrismaClient , ScaleType } from "@prisma/client";
 
 const prisma = new PrismaClient();
 

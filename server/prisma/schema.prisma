@@ -12,7 +12,7 @@ model RecipeTitle {
   title String
   create_datetime DateTime
   update_datetime DateTime
-  materials  Materials?
+  materials  Materials[]
 }
 
 model ScaleType {

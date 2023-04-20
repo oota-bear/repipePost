@@ -5,9 +5,6 @@ type OptionalQuery0 = {
 }
 
 export const pagesPath = {
-  Top: {
-    $url: (url?: { hash?: string }) => ({ path: '/Top', hash: url?.hash })
-  },
   article: {
     _id: (id?: string | number) => ({
       $url: (url?: { hash?: string }) => ({ path: `/article${id !== undefined ? `/${id}` : ''}`, hash: url?.hash })
@@ -20,7 +17,9 @@ export const pagesPath = {
   recipeInputTitle: {
     $url: (url?: { hash?: string }) => ({ path: '/recipeInputTitle', hash: url?.hash })
   },
-  $url: (url?: { hash?: string }) => ({ path: '/', hash: url?.hash })
+  top: {
+    $url: (url?: { hash?: string }) => ({ path: '/top', hash: url?.hash })
+  }
 }
 
 export type PagesPath = typeof pagesPath

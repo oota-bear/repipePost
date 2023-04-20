@@ -1,79 +1,75 @@
 <template>
   <v-app>
-    <Header />
+    <Head></Head>
     <div class="mt-16">
-    <v-row align="right" class="ml-20">
-      <v-col cols="4">
+    <v-row align="right" class="ml-20 w-100">
+      <v-col cols="7">
         <h3 align="right">
           レシピ管理サイト
         </h3>
       </v-col>
-      <v-spacer></v-spacer>
-      <v-col cols="6" class="mr-20">
-        <v-btn 
-          align="right"
-          @click="gotoPost"
+    </v-row>
+    <v-row  class="ml-20">
+      <v-col cols="7" class="mt-3">
+        <h3 align=" right">
+          レシピ検索
+        </h3>
+      </v-col>
+      <v-col cols="3">
+        <v-text-field
+          v-model="searchRecipeTitle"
+          outlined
         >
-          レシピを登録する
-        </v-btn>
+        </v-text-field>
+      </v-col>
+      <v-col>
+        <v-col cols="2">
+        <v-btn
+          @click="searchRecipe()"
+        >検索</v-btn>
+      </v-col>
       </v-col>
     </v-row>
+      <v-col cols="3">
+      </v-col>
+      <v-col cols="1">
+        <h3>検索結果</h3>
+      </v-col>
+      <v-col cols="3">{{ searchResult.length }}件</v-col>
   </div>
 </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-//import type { Task } from '$prisma/client'
-import UserBanner from '~/components/UserBanner.vue'
-import Logo from '~/components/Logo.vue'
-import Header from'~/components/Header.vue'
+import Vue from 'vue';
+import type { RecipeTitle } from '.prisma/client';
+import Head from'../components/Header.vue';
+// import RecipeSearchResult from '../components/Top/recipeSearchResult.vue'
 
 export default Vue.extend({
   name:"Top",
   components: {
-    UserBanner,
-    Logo,
-    Header
+    Head
   },
-  data() {
+  data: function() {
     return {
-      //tasks: [] as Task[],
-      newLabel: ''
+      searchRecipeTitle:'',
+      getInfo: '',
+      searchResult: [] as RecipeTitle[],
     }
   },
-  async fetch() {
-    //await this.fetchTasks()
-  },
-  methods: {
-    /*
-    async fetchTasks() {
-      this.tasks = await this.$api.tasks.$get()
-    },
-    async createTask() {
-      if (!this.newLabel) return
-
-      await this.$api.tasks.post({ body: { label: this.newLabel } })
-      this.newLabel = ''
-      await this.fetchTasks()
-    },
-    async toggleDone(task: Task) {
-      await this.$api.tasks
-        ._taskId(task.id)
-        .patch({ body: { done: !task.done } })
-      await this.fetchTasks()
-    },
-    async deleteTask(task: Task) {
-      await this.$api.tasks._taskId(task.id).delete()
-      await this.fetchTasks()
-    },
-    */
-    gotoPost(){
-      console.log("aaa")
+methods: {
+  async searchRecipe() {
+    const getResult =  await this.$api.RecipeTitle._title("肉")
+    if(getResult !== undefined){
+      this.searchResult = getResult
+      console.log(this.searchResult)
+    }
+    else{
+      alert('検索結果は0件でした');
+    }
   }
-  
-  },
-  
+}
 })
 </script>
 
