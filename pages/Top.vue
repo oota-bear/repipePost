@@ -30,19 +30,27 @@
       </v-col>
       </v-col>
     </v-row>
+    <v-row>
       <v-col cols="3">
       </v-col>
       <v-col cols="1">
         <h3>検索結果</h3>
       </v-col>
       <v-col cols="3">{{ searchResult.length }}件</v-col>
+    </v-row>
+    <div v-if="searchResult.length !== 0">
+      <v-row v-for="(item) in searchResult.length" :key="item.id" class="w-100">
+        <v-col cols="3"></v-col>
+        <v-col cols="4">{{  item.title}}</v-col>
+      </v-row>
+    </div>
   </div>
 </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import type { RecipeTitle } from '.prisma/client';
+import type { RecipeTitle } from '@prisma/client';
 import Head from'../components/Header.vue';
 // import RecipeSearchResult from '../components/Top/recipeSearchResult.vue'
 
@@ -60,13 +68,17 @@ export default Vue.extend({
   },
 methods: {
   async searchRecipe() {
-    const getResult =  await this.$api.RecipeTitle._title("肉")
+    // const getResult =  await this.$api.RecipeTitle.$get({config:{params:{title:"肉"}}});
+    const getResult =  await this.$api.RecipeTitle._title(this.searchRecipeTitle).$get({config:{params:{title:this.searchRecipeTitle}}})
     if(getResult !== undefined){
       this.searchResult = getResult
-      console.log(this.searchResult)
+      if(getResult.length === 0){
+        alert('取得結果は0件です。')
+      }
+
     }
     else{
-      alert('検索結果は0件でした');
+      alert('取得に失敗しました。');
     }
   }
 }

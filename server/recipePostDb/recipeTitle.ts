@@ -20,6 +20,14 @@ export const dbMethod = {
     getRecipe :async (recipeTitle: RecipeTitle["title"]):Promise<RecipeTitle[] | undefined> => {
       try {
          return await prisma.recipeTitle.findMany({
+          where: {
+            title: {
+              contains: recipeTitle
+            },
+          },
+          include:{
+            materials:true
+          },
          })
       }
       catch(error:any){
